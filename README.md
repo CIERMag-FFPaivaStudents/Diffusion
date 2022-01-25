@@ -14,5 +14,13 @@ This repository have our recent studies on Diffusion simulations and methods.
         </sub>
       </a>
     </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/joao-ant.png?size=100" width="100px;" alt="Foto do João Antônio no GitHub"/><br>
+        <sub>
+          <a href="https://github.com/joao-ant">João Antônio</a>
+        </sub>
+      </a>
+    </td>
   </tr>
 </table>
