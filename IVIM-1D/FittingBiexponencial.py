@@ -13,14 +13,14 @@ from scipy.optimize import curve_fit
 
 
 #Simulation Parameters
-bvalueMax=1000
+bvalueMax=900
 Deltabvalue=2
 bvalue= np.arange(0,bvalueMax,Deltabvalue)
 SignalDecay=[]
 
 
 #Select Parameters
-Combination=6
+Combination=1
 if Combination==1:
     PerfusionFraction=9.0E-2
     DiffusionCoefficient=7.0E-4
@@ -42,9 +42,9 @@ elif Combination==5:
     DiffusionCoefficient=2.0E-3
     PseudoDiffusionCoefficient=6.0E-3
 elif Combination==6:
-    PerfusionFraction=1.8E-1
-    DiffusionCoefficient=1.0E-3
-    PseudoDiffusionCoefficient=3.5E-2
+    PerfusionFraction=1.0E-1
+    DiffusionCoefficient=7.0E-4
+    PseudoDiffusionCoefficient=5.0E-2
 else:
     print('Revisar valor da combinação')
 
@@ -96,22 +96,3 @@ print(SimulatedPerfusionFraction)
 print(SimulatedDiffusionCoefficient)
 print(SimulatedPseudoDiffusionCoefficient)
 
-################################################
-
-'''plt.title("Double Exponential Decay Signal vs b-value")
-plt.xlabel('bvalue[mm^2/s]')
-plt.ylabel('Magnetização [u.a.]')
-plt.plot(bvalue,SignalDecay,color="black")
-plt.show()'''
-
-'''plt.title("Ajuste do Sinal de Decaimento vs b-value")
-plt.xlabel('bvalue[mm^2/s]')
-plt.ylabel('Magnetização [u.a.]')
-plt.plot(bvalue,FittingBiexponencial,color="red")
-plt.show()'''
-
-'''plt.title("Resíduo vs b-value")
-plt.xlabel('bvalue[mm^2/s]')
-plt.ylabel('Magnetização [u.a.]')
-plt.plot(bvalue,Residuo,color="blue")
-plt.show()'''
