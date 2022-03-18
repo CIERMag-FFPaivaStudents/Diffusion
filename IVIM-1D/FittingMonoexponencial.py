@@ -8,20 +8,20 @@ for healthy and pathologic regions of a human brain. The fitting process was
 made using the function curve_fit from the library scipy.optmize.
 """
 
-import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib.pyplot as plt 
+import numpy as np 
 from scipy.optimize import curve_fit
 
 
 #Simulation Parameters
 bvalueMax=900
-Deltabvalue=2
+Deltabvalue=2 # Os parâmetros vem depois das funções
 bvalue=np.arange(0,bvalueMax,Deltabvalue)
 SignalDecay=[]
 
 #Select Parameters
 Combination=6
-if Combination==1:
+if Combination==1: # essa estrutura seria interessante estar dentro de uma função "selectCombination"
     PerfusionFractionComplement=9.1E-1
     PerfusionFraction=9.0E-2
     DiffusionCoefficient=7.0E-4
@@ -58,11 +58,11 @@ elif Combination==6:
     PseudoDiffusionCoefficient=3.5E-2
     bvalueCut=200
 else:
-    print('Review tehe bvalueCut used')
+    print('Review the bvalueCut used')
 
 
 #Biexponential and exponential function
-def biexponential(x,a,b,c,d):
+def biexponential(x,a,b,c,d): #faltou documentação para essas funções
     return a*np.exp(-1*b*x) + c*np.exp(-1*d*x)
 
 def exponential (x,a,b):
@@ -70,16 +70,16 @@ def exponential (x,a,b):
 
 
 #Signal Simulation
-for i in enumerate(bvalue):
+for i in enumerate(bvalue): #poderia ter sido uma função (ai vc tiraria esse comentário)
     Signal= biexponential(i[1],PerfusionFractionComplement,DiffusionCoefficient,PerfusionFraction,PseudoDiffusionCoefficient)
     SignalDecay.append(Signal)
 
-#Signal Segmentation
-bvalueEnd=bvalue[slice(bvalueCut,450,1)]
+#Signal Segmentation 
+bvalueEnd=bvalue[slice(bvalueCut,450,1)] #mesma coisa: poderia ter sido uma função (ai vc tira esse comentário)
 SignalDecayEnd=SignalDecay[slice(bvalueCut,450,1)]
 
 
-#Signal fitting
+#Signal fitting (não precisa desse comentário)
 Parameters, Covariancie= curve_fit(exponential,bvalueEnd,SignalDecayEnd,p0=[0.0,0.0],bounds=(-np.inf, np.inf),method='dogbox')
 
 SimulatedPerfusionFractionComplement=Parameters[0]
@@ -98,7 +98,7 @@ else:
 
 
 #Biexponential function
-def biexponential2(x,c,d):
+def biexponential2(x,c,d): # a função vem antes do código principal
     
     '''In this  case, the biexponential function takes the values acquired 
     in the previous fittig as its parameters'''
@@ -106,7 +106,7 @@ def biexponential2(x,c,d):
     return (SimulatedPerfusionFractionComplement)*np.exp(-1*SimulatedDiffusionCoefficient*x) + c*np.exp(-1*d*x)
 
 
-#Signal fitting
+#Signal fitting (não precisa desse comentário)
 Parameters2, Covariancie2= curve_fit(biexponential2,bvalue,SignalDecay,p0=[0.0,0.0],bounds=(-np.inf, np.inf))
 
 SimulatedPerfusionFraction=Parameters2[0]
@@ -116,8 +116,8 @@ BiexponentialFitting=biexponential2(bvalue,*Parameters2)
 Residue=SignalDecay-BiexponentialFitting
 
 
-#Graphic Generation
-fig1, axes =plt.subplots(nrows=2,ncols=2,figsize=(12,8))
+#Graphic Generation 
+fig1, axes =plt.subplots(nrows=2,ncols=2,figsize=(12,8)) # esse bloco poderia ser uma função (com o nome graphicGeneration) e ai vc tiraria esse comentário
 axes[0,0].set_title('Simulated Signal')
 axes[0,0].set_xlabel('bvalue[mm^2/s]')
 axes[0,0].set_ylabel('Magnetization [u.a.]')
@@ -145,9 +145,9 @@ print(SimulatedDiffusionCoefficient)
 print(SimulatedPseudoDiffusionCoefficient)
 
 ##############################################################################
-''''plt.title("Sinal de Decaimento Biexponencial Final vs b-value")
-plt.xlabel('bvalue[mm^2/s]')
-plt.ylabel('Magnetização [u.a.]')
+''''plt.title("Sinal de Decaimento Biexponencial Final vs b-value") # Não existe comentar trechos inteiros em python
+plt.xlabel('bvalue[mm^2/s]')                                        # as 3 aspas são utilizadas para comentários de documentação
+plt.ylabel('Magnetização [u.a.]')                                   # então se o gráfico não vai entrar dentro do código, vc pode apagar ele
 plt.plot(bvalueFim,SinalDecaimentoFim,color="black")
 plt.show()'''''''''
 
